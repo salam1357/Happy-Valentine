@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لعيونها بس ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:'Cairo',sans-serif;background:black;overflow:hidden;display:flex;justify-content:center;align-items:center;min-height:100vh;color:white}
+.card{width:95%;max-width:420px;text-align:center;position:relative;z-index:2}
+button{background:white;color:#ff004f;border:none;padding:10px 18px;border-radius:20px;margin:6px;font-weight:bold;cursor:pointer;transition:0.3s}
+button:hover{transform:scale(1.08)}
+.hidden{display:none}/* قلوب متحركة بالخلفية دائماً */ .bg-heart{ position:fixed; font-size:18px; animation:floatUp 6s linear infinite; opacity:0.85; z-index:1; filter:drop-shadow(0 0 6px currentColor); } @keyframes floatUp{ 0%{transform:translateY(0) scale(1);opacity:0.9} 100%{transform:translateY(-110vh) scale(1.4);opacity:0} }
+
+.name-glow{font-size:38px;font-weight:bold;color:#ff2e88;text-shadow:0 0 10px #ff2e88,0 0 20px #ff2e88,0 0 40px #ff004f;animation:glow 1.5s infinite alternate;margin-bottom:20px} @keyframes glow{from{text-shadow:0 0 10px #ff2e88}to{text-shadow:0 0 40px #ff004f}}
+
+.heart-around{position:absolute;font-size:18px;animation:orbit 4s linear infinite} @keyframes orbit{from{transform:rotate(0deg) translateX(60px) rotate(0deg)}to{transform:rotate(360deg) translateX(60px) rotate(-360deg)}}
+
+.rose{font-size:70px;animation:bloom 2s ease forwards} @keyframes bloom{0%{transform:scale(0) rotate(-180deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+
+.message-wrapper{position:relative;margin-top:20px} .heart-box{padding:25px;background:#ff004f;border-radius:20px;box-shadow:0 0 40px #ff004f;animation:pulse 2s infinite;max-height:60vh;overflow-y:auto} @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+
+.edge-heart{position:absolute;font-size:18px;color:white;animation:floatEdge 3s ease-in-out infinite alternate} @keyframes floatEdge{from{transform:translateY(0)}to{transform:translateY(-8px)}}
+
+.love-final{font-size:42px;font-weight:bold;color:#fff;text-shadow:0 0 15px #ff2e88,0 0 30px #ff004f;animation:finalGlow 1.2s infinite alternate;margin-top:15px} @keyframes finalGlow{from{transform:scale(1)}to{transform:scale(1.1)}} </style>
+
+</head>
+<body>
+<audio id="song" loop>
+<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_8a7e4c6f3d.mp3" type="audio/mpeg">
+</audio>
+<div class="card">
+<button onclick="start(this)">اضغطي هنا يا عمري ❤️</button><div id="q1" class="hidden">
+<h2>طيبة تعرفين سلام؟ 💕</h2>
+<button onclick="goQ2()">إي 😌</button>
+<button onclick="goQ2()">أكيد أعرفه ❤️</button>
+</div><div id="q2" class="hidden">
+<h2>شنو تعتبرين سلام؟ 💖</h2>
+<button onclick="goQ3()">هيام 😍</button>
+<button onclick="goQ3()">عشق ❤️</button>
+</div><div id="q3" class="hidden">
+<h2>تحبين سلام؟ 😏</h2>
+<button onclick="showName()">نعم 😍</button>
+<button onclick="showName()">أكثر شي بالدنيا ❤️</button>
+</div><div id="nameSection" class="hidden" style="position:relative;">
+<div class="name-glow">طيوبتي ❤️</div>
+</div><div class="rose hidden" id="rose">🌹</div><div class="message-wrapper hidden" id="messageWrapper">
+<div class="edge-heart" style="top:-15px;left:-10px;">💖 طيبة</div>
+<div class="edge-heart" style="top:-15px;right:-10px;">💖 طيبة</div>
+<div class="edge-heart" style="bottom:-15px;left:-10px;">💖 طيبة</div>
+<div class="edge-heart" style="bottom:-15px;right:-10px;">💖 طيبة</div><div class="heart-box">
+<div id="text"></div>
+<button onclick="showFinalLove()">اضغطي هنا 💞</button>
+<div id="finalLove" class="hidden love-final">احبج نمنم 💖</div>
+</div>
+</div>
+</div><script>
+const song=document.getElementById('song');
+const message=`كل عام واشوفج بخير طيوبتي ❤️\nوكون هذا اليوم ينعاد كل سنه ونبقى نكرر بيه احبج من كل كلبي كلش هواي احبج 💞\nابتسامتج ضحكتج صوتج مجرد وجودج وياي بحد ذاته اعتبره نعمه الي ✨\nوشكد ما هسه اكعد وابقى احجي الحجي مراح يكفيج لان تستاهلين يا روحي انتي 🌹\nكوني دائما بخير ودائما هاي الابتسامه الي هسه انتي دتقراين بيها بقيها احبها واحب صاحبها هم واعشقهم الاثنين 😺💖\nضحكج مجرد ضحكج يخفيلي مشاكل بالنسبه الي\nابتسمي ويارب دومج مبتسمه 😊\nوتذكري دائما سلام يحبج يگلبي وروحه مو اله روحه بيج صارت ❤️`;
+let i=0;
+
+function start(btn){btn.style.display='none';song.play();document.getElementById('q1').classList.remove('hidden');}
+function goQ2(){document.getElementById('q1').classList.add('hidden');document.getElementById('q2').classList.remove('hidden');}
+function goQ3(){document.getElementById('q2').classList.add('hidden');document.getElementById('q3').classList.remove('hidden');}
+
+function showName(){document.getElementById('q3').classList.add('hidden');const section=document.getElementById('nameSection');section.classList.remove('hidden');for(let k=0;k<6;k++){let h=document.createElement('div');h.className='heart-around';h.innerHTML='💖';h.style.top='50%';h.style.left='50%';h.style.animationDelay=(k*0.5)+'s';section.appendChild(h);}setTimeout(()=>{section.classList.add('hidden');document.getElementById('rose').classList.remove('hidden');setTimeout(()=>{document.getElementById('messageWrapper').classList.remove('hidden');typeWriter();},2000);},4000);}
+
+function typeWriter(){if(i<message.length){document.getElementById('text').innerHTML+=message.charAt(i);i++;setTimeout(typeWriter,60);}}
+
+function showFinalLove(){document.getElementById('finalLove').classList.remove('hidden');}
+
+/* توليد قلوب بالخلفية بشكل مستمر */
+setInterval(()=>{
+let heart=document.createElement('div');
+heart.className='bg-heart';
+heart.innerHTML='❤';
+
+// ألوان مختلفة
+const colors=['#ff2e88','#ff004f','#ff6ec7','#ff1744','#e91e63','#ff4081','#f50057'];
+heart.style.color=colors[Math.floor(Math.random()*colors.length)];
+
+heart.style.left=Math.random()*100+'vw';
+heart.style.bottom='-20px';
+heart.style.fontSize=(15+Math.random()*25)+'px';
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+},400);
+</script></body>
+</html>
